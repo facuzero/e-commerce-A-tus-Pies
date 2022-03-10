@@ -1,0 +1,44 @@
+/*  Footer  */
+footer{
+    background: linear-gradient(#524d3d, #8c8364 50%, #cdc4a9 ,  #f8f1df);
+    border-radius: 20px 20px 0 0 ;
+    margin-top: 12px;
+    bottom: 0;
+    width:100%
+    
+}
+footer p {
+    display:flex;
+    justify-content:fle;
+}
+footer a{
+    text-decoration: none;
+    color: black;
+    
+}
+footer #fb{
+    color: blue;
+    font-size:20px;
+}
+footer #wpp{
+    color: white;
+    background-color: green;
+    border-radius: 1rem;
+    font-size:25px;
+}
+footer #ig{
+    background:linear-gradient(#8a3ab9,#fccc63,#fbad50,#cd486b);
+    color: whitesmoke;
+    border-radius: 10%;
+    font-size:20px;
+}
+footer #tw{
+    color: cyan;
+    font-size:20px;
+}
+@media(min-width:768px){
+    footer i, footer #fb, footer #ig, footer #tw{
+        font-size:20px;
+        justify-content: space-between;
+    }
+}

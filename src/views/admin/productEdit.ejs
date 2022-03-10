@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <%- include('../partials/adminHead') %>
+    <body>
+        <%- include('../partials/adminHeader') %>
+        
+        <div class="container-fluid">
+          <div class="row">
+            <%- include('../partials/adminSidebar') %>
+            <form id="form" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 row p-3 justify-content-center" action="/admin/products/<%=product.id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+                <div class="col-12 mb-3">
+                    <label for="productName" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="productName" name="name" value="<%= locals.old ? old.name : product.name %>">
+                    <% if (locals.errors && errors.name) { %>
+                        <small class="text-danger"><%= errors.name.msg %></small>
+                    <% } %>
+                </div>
+                <small id="productErrors" class="text-danger"></small>
+                <div class="col-12 mb-3">
+                    <select class="form-select categorySelect" id="specificSizeSelect" name="category">
+                      <!-- <option selected hidden value="">Categorias</option> -->
+                     <% categories.forEach(category => { %>
+                        <option value="<%- category.id %>" <%- locals.old && old.category == category.id ? "selected" : category.id == product.category ? "selected" : "" %>><%- category.name %></option>
+                     <% }) %>
+                    </select>
+                    <% if (locals.errors && errors.category) { %>
+                        <small class="text-danger"><%= errors.category.msg %></small>
+                    <% } %>
+                </div>
+                <div class="col-12 mb-3">
+                    <select class="form-select subcategorySelect" id="" name="trade_mark">
+                        <option selected hidden value="">Marca</option>
+                        <% marks.forEach(marca => { %>
+                            <option value="<%= marca.id %>" <%- locals.old && old.trade_mark == marca.id ? "selected" : marca.id == product.trade_mark ? "selected" : "" %> ><%- marca.mark%> </option>
+                          <% }) %>
+                      </select>
+                    <% if (locals.errors && errors.trade_mark) { %>
+                        <small class="text-danger"><%= errors.trade.msg %></small>
+                    <% } %>
+                </div>
+                <div class="col-12 mb-3">
+                <label for="productSize" class="form-label">Talles</label>
+                <br>
+                <input type="text" class="form-control" name="productSize" id="productSize" value="<%-product.size.trim()%>">
+                </div>
+                <small id="sizeErrors" class="text-danger"></small>
+                <div class="col-12 mb-3">
+                    <label for="colors" class="form-label"> Color</label>
+                        <br>
+                    <% colors.forEach(color => { %>
+                        <label for="colors"><%- color.name %> </label>
+                        <input class="productColor" name="colors" type="checkbox" value="<%- color.id %>"
+                        <%product.colors.forEach(colorId => { %>
+                            <% if (colorId.id == +color.id) { %>
+                                checked 
+                            <% } %> 
+                        <% }) %>> 
+                        <% }) %>
+                    </div>
+                    <% if (locals.errors && errors.colors) { %>
+                        <small class="text-danger"><%- errors.colors.msg %> </small>
+                        <% } %>
+                        <small class="text-danger" id="colorErrors"></small>
+                <div class="col-12 mb-3">
+                    <label for="perPrice" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="perPrice" name="price" value="<%= locals.old ? old.price : product.price %>">
+                    <% if (locals.errors && errors.price) { %>
+                        <small class="text-danger"><%= errors.price.msg %></small>
+                    <% } %>
+                </div>
+                <small id="priceErrors" class="text-danger"></small>
+                <!-- <div class="col-12 mb-3">
+                    <label for="inputDiscount" class="form-label">Descuento</label>
+                    <input type="number" class="form-control" id="inputDiscount" name="discount" value="<%#= locals.old ? old.discount : product.discount %>">
+                </div> -->
+                <div class="col-12 mb-3">
+                    <label for="description" class="form-label">Descripción</label>
+                    <textarea   name="description"><%= locals.old ? old.description : product.description %></textarea>
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="image" class="form-label">Imagen</label>
+                        <input type="file" name="image" class="form" id="image" multiple >
+                    <% if (locals.errors && errors.image) { %>
+                        <small class="text-danger"><%= errors.image.msg %> </small>
+                    <% } %>
+                    <small class="text-danger" id="image"></small>
+                </div>
+                <div class="card mb-3" style="max-width: 300px;">
+                    <% product.images.forEach(imagenes => { %>
+                    <img src="/images/products/<%- imagenes.image %>" class="card-img" alt="ID:<%= product.id%>">
+                    <% }) %>
+                    
+                  </div>
+                <small class="text-danger" id="submitErrors"></small>
+                <button type="submit" class="btn btn-primary">
+                    EDITAR
+                </button>
+                
+            </form>
+          </div>
+        </div>
+        <%- include('../partials/scripts') %>
+        </body>
+    </html>

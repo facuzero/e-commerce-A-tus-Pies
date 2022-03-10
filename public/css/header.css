@@ -1,0 +1,184 @@
+@import url('./animation.css');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
+}
+/********HEADER*******/
+.header{
+    background: linear-gradient(#524d3d, #8c8364 50%, #cdc4a9 ,  #f8f1df);  
+    width: 100%;
+}
+.posicion-logo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.redondo{ /*sombreado en el radio del logo*/
+    box-shadow: 0 0 15px #f8f1df ;
+}
+/**********MENÚ***********/
+li{
+    border-bottom: #8c8364 solid 0.2em;
+}
+.img-menú1 .fas{
+    color: black;
+}
+#contenedor-menú #cerrar{
+    display: none;
+}
+.user {
+    position: relative;
+}
+
+.menu-user {
+    display: none;
+    position: sticky;
+    font-size: 1rem;
+    width: 9rem;
+    background-color: white;
+    padding: 1rem;
+    border-radius: .5rem;
+    margin-left: -3rem;
+}
+
+.user:hover .menu-user{
+   display: block;
+
+}
+.session {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #00d900;
+    border-radius: 50px;
+    position: relative;
+    top: -10px;
+    right: 0px;
+}
+/*******************CELULAR********************/
+@media all and (min-width:320px){
+
+    /*********HEADER*********/
+
+    img.redondo { /*controla que no desborde la imágen del logo*/
+        width: 15%;
+    }
+
+    .redondo{ /*forma redondeada de logo*/
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        object-fit:scale-down;
+    }
+  
+    /*********MENÚ*********/
+    .header ul li{
+        padding: 1em;
+
+    } 
+    
+    nav ul{
+        list-style: none;
+    }
+
+    nav a{
+        text-decoration: none;
+        font-size: 1.2em;
+        color: #000000;
+
+    }
+
+    #contenedor-menú #cerrar{ /*oculta imagen de la equis*/
+        display: none;
+    }
+
+    #contenedor-menú #contenedor-enlaces{
+        height: 0; /*cambia altura a 0*/
+        overflow: hidden; /*oculta lo que sobresalga del menú*/
+        transition: height 0.1s ease; /*efecto de transicion*/
+    }
+    
+    #contenedor-menú:target #abrir{
+        display: none;
+    }
+
+    #contenedor-menú:target #cerrar{
+        display: block;
+    }
+
+    #contenedor-menú:target #contenedor-enlaces{
+        height: 20%; /*altura del menú*/
+        transition: height 0.5s ease-in-out;
+    }
+
+    /***************BUSCADOR******************/
+    .search-bar{
+        height: 5%;
+        display: flex;
+        flex-direction: row;
+        position:relative;
+    }
+    .search-bar input{
+        width: 90%;
+        height: 5%;
+        padding: 0.3em;
+    }
+    .search-bar .search-form{
+        display: contents;
+    }
+    .search-bar button{
+        position: relative;
+        bottom: 17px;
+    }
+    
+
+}
+/*******************TABLET********************/
+@media all and (min-width:768px){
+    /**********MENU**********/
+ 
+    #abrir, #cerrar{
+        display: none;
+    } 
+
+    #contenedor-menú #contenedor-enlaces{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        height: 10%;
+    }
+
+    li{
+        border-bottom: none;
+    }
+    .search-bar{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .search-bar input{
+        width: 50%;
+    } 
+}
+    
+/*****************ESCRITORIO********************/
+@media all and (min-width:1024PX){
+    /**********MENU**********/
+
+    #abrir, #cerrar{
+        display: none;
+    } 
+
+    #contenedor-menú #contenedor-enlaces{
+        display: flex;
+        flex-direction: row;
+        height: 10%;
+    }
+
+    li{
+        border-bottom: none;
+    }
+    
+
+}

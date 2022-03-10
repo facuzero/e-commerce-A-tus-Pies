@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Productos</title>
+    <%-include ('./partials/head') %>  
+</head>
+<body>
+    <%- include('./partials/header')  %> 
+    <div class="Titulo">
+    <h1>Nuestros productos</h1>
+    </div>
+    <div class="background">
+    </div>
+    <div class="container__card">
+        <% products.forEach(shoes => { %>
+            <% shoes.images.forEach(image => { %>
+                <div class="card__father">
+                    <div class="card">
+                        <div class="card__front">
+                            <img src="/images/products/<%- image.image%>" alt="" width="100%">
+                            <div class="bg"></div>
+                                <div class="body__card_front"> </div>
+                        </div>
+                        <div class="card__back">
+                            <div class="body__card_back">
+                                <h1><%-shoes.name %> </h1>
+                                <a href="/products/detail/<%-shoes.id %> "><input type="button" value="Ver detalle"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %> 
+        <% }) %>
+    </div>  
+</body>
+</html>

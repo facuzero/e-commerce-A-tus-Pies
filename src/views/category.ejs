@@ -1,0 +1,36 @@
+    <!DOCTYPE html>
+<html lang="es">
+<%- include('./partials/head')  %> 
+<body>
+    <%- include('./partials/header')  %> 
+    <h2>Categoria:  </h2>
+    <div class="categories-product">
+        <% filtrado.forEach(product => { %>
+         <div class="products"> 
+            <p><%- product.name%> </p>
+            <% product.images.forEach(imagenes => { %>
+                <img class="product-image" src="/images/products/<%- imagenes.image %> " alt="ID:<%= product.id%> ">
+            <% }) %>
+            <p>Descripcion: <%- product.description%> </p>
+            <p>Talle: 
+                <%= product.size%>
+            </p> 
+            <p>Color: 
+                <% product.colors.forEach(color => { %>
+                    <%= color.name %> 
+                <% }) %>
+            </p>
+            <p>Marca:  
+                <%= product.marca.mark %>
+            </p>
+            <p>Precio: <%- product.price%> </p>
+            <form action="/products/cart">
+                <button type="submit">Agregar al carrito <i class="fas fa-shopping-cart"></i></button>
+            </form>
+        </div>
+        <% }) %>
+    </div>
+    <%- include('./partials/footer')  %> 
+    <%- include('./partials/scripts')  %> 
+</body>
+</html>

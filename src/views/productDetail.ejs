@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+    <%- include ('./partials/head.ejs')%>
+  <body>
+    <%- include ('./partials/header.ejs')%>
+    <!--  -->
+    <section class="productDetail">
+        <div class="card-wrapper">
+            <div class="card">
+                <!-- imagenes producto -->
+                <div class="product-imgs">
+                    <div class="img-display">
+                        <div class="img-showcase">
+                            <img src="/images/products/<%- product.images[0].image %>" alt="ID:<%= product.id%> ">
+                            
+                        </div>
+                    </div>
+    
+                </div>
+                <!-- tarjeta derecha -->
+                <div class="product-content">
+                    <h2 class="product-title"><%= product.name %></h2>
+                    <a href="#" class="product-link">Más productos</a>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>4.7(21)</span>
+                    </div>
+                    <!-- precio -->
+                    <div class="product-price">
+                        <p class="last-price">Precio: $<span><%= product.price %></span></p>
+                        <!-- <p class="new-price">Precio con descuento: <span>$6799,15 (15%)</span></p> -->
+    
+                    </div>
+                    <!-- fin precio -->
+                    <!-- descripcion del producto -->
+                    <div class="product-detail">
+                        <p><%= product.description %></p>
+                        <!-- TALLES -->
+                        <div class="size-container">
+                            <h3 class="title">Talles</h3>
+
+                            <div class="sizes">
+                                <% let talles = product.size
+                                console.log(typeof talles);
+                                %>
+                                
+                                    <span class="size"><%= talles.slice(0,2) %> </span>
+                                    <span class="size"><%= talles.slice(3,5) %> </span>
+                                    <span class="size"><%= talles.slice(6,8) %> </span>
+                                    <span class="size"><%= talles.slice(9,11) %> </span>
+                                    <span class="size"><%= talles.slice(12,14) %> </span>
+                                  
+                            </div>
+                            <!-- FIN TALLES -->
+    
+                        <div class="purchase-info">
+                            <input type="number" min="0" value="1">
+                            <button type = "button" class="btn">Agregar al carrito <i class="fas fa-shopping-cart"></i></button>
+                        </div>
+                        <!-- iconos redes sociales -->
+                        <div class="social-links">
+                            <p>Compartir</p>
+                            <a href="#">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <!-- fin de iconos redes sociales -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+    </section>
+    <%- include ('./partials/footer.ejs')%>  
+    <%- include ('./partials/scripts.ejs')%>
+    
+</body>
+</html>
