@@ -39,6 +39,7 @@ let controller= {
     },
    
     store: (req,res) => {
+        console.log(req.files)
         const{name,description,price,category,trade_mark,colors,size} = req.body
         let errors = validationResult(req);
         let arraySizes= typeof req.body.size !== 'string' ? req.body.size : [req.body.size];
@@ -97,15 +98,25 @@ let controller= {
             .catch(error => console.log(error))              
         }
         else{
-            console.log(req.body)
+             errors = errors.mapped()
+            /* if(req.fileValidationError) {
+                console.log(req.fileValidationError)
+                errors = {
+                    ...errors,
+                    image : {
+                        msg: req.fileValidationError
+                    }
+                } 
+            }        
+            */
+            console.log(errors)
             Promise.all([Categories.findAll(),Marks.findAll(),Color.findAll()])
-            .then(([categories,marks,colors]) => {
-                
+            .then(([categories,marks,colors]) => {                
                 res.render('admin/productCreate',{
                     categories,
                     marks,
                     colors,
-                    errors: errors.mapped(),
+                    errors,
                     session:req.session,
                     old:req.body,
                 })
@@ -249,7 +260,7 @@ let controller= {
         Products.findByPk(zapaId,{
             include:[{association:'images'}]
         })
-            .then(result => {
+            .then(result => { console.log(result)
                 if (zapaId && req.file) {
                     if (fs.existsSync("../public/images/products/botas", result.images.image)) {
                         fs.unlinkSync(`../public/images/products/botas ${result.images.image}`)
@@ -282,13 +293,9 @@ let controller= {
                 }
             })
             .then(()=>{
-                Products.destroy({
-                    where:{
-                        id:req.params.id
-                    }
-                })
+                Products.destroy({where:{id:req.params.id}})
                 .then(res.redirect('/admin/products/'))
-                    })                    
+            })                    
         })
         .catch(error => console.log(error))        
     }

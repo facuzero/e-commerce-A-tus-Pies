@@ -24,15 +24,16 @@ let controller={
                 }
             })
             .then(user => {
+                console.log(user)
                 req.session.user = {
                     id: user.id,
-                    first_name: user.name,
+                    first_name: user.first_name,
                     last_name: user.last_name,
                     email: user.email,
                     avatar: user.avatar,
                     rol: user.rol
                 }
-    
+               // console.log(req.session.user)
                if(req.body.remember){
                    const TIME_IN_MILISECONDS = 60000
                    res.cookie("aTusPies", req.session.user, {
@@ -43,8 +44,47 @@ let controller={
                }
     
                 res.locals.user = req.session.user;
+
+                /* CARRITO */
+                req.session.cart = [];
+
+                db.Cart.findOne({
+                    where : {
+                        user_id : req.session.user.id
+                    },
+                    include : [
+                        {
+                            association : 'products_cart',
+                            include : [
+                                {
+                                    association : 'product',
+                                    include : ['images','colors']
+                                }
+                            ]
+                        }
+                    ]
+                }).then(cart => {
+
+                    if(cart) {
+                        cart.products_cart.forEach(item => {
+                            let product = {
+                                id : item.product.id,
+                                name : item.product.name,
+                                image : item.product.images[0].image,
+                                price : item.product.price,
+                                size : item.product.size,
+                                color : item.product.colors[0].name,
+                                quantity : +item.quantity,
+                                total : +item.quantity * item.product.price,
+                                cartId : cart.id
+                            }
+
+                            req.session.cart.push(product)
+                        });
+                    }
+                    return res.redirect('/')
+                }).catch(error => console.log(error))
     
-                res.redirect('/')
             })
         }else{
             res.render('login', {

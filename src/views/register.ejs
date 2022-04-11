@@ -29,7 +29,7 @@
                 <% if (locals.errors && errors.email) { %>
                     <small class="text-danger"><%= errors.email.msg %> </small>
                 <% } %>
-                <span class="error" id="emailErrors"></span>
+                <span id="emailErrors"></span>
             </div>
             <div class="form-ad-input">
                 <input class="form-control" id="pass1" class="forma-tamaño" type="password" name="pass1" placeholder="Contraseña">
@@ -43,7 +43,7 @@
                 <% if (locals.errors && errors.pass2) { %>
                     <small class="text-danger"><%= errors.pass2.msg %> </small>
                 <% } %>
-                <span id="pass2Errors"></span>
+                <span id="pass2"></span>
             </div>
             <div class="input-file">
                 <p id="file-text">Agregar foto</p>
@@ -66,16 +66,18 @@
                 REGISTRATE
             </button>
             <a href="/user/login" class="userLink">Ya tengo cuenta</a>
-        
+            
+            <div class="olvidaste-register" >
+                <a href="">¿olvidaste tu contraseña?</a>
+            </div>
         </form>
-        <div ><a href="">¿Olvidaste tu contraseña?</a> </div>
+    
     </div>
     <div class="cuadro-form orientar-p">
         <p>¿Tienes cuenta?</p>
         <a href="login">Inicia sesion</a> 
     </div>
     <%- include ('./partials/footer.ejs')%>
-    <%- include ('./partials/scripts.ejs')%>
     <script src="/javascript/registro.js"></script>
 </body>
 </html>

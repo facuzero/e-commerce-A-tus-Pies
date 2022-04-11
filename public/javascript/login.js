@@ -64,7 +64,7 @@ window.addEventListener('load', function () {
                 validationsErrors = true
                 break;
             case !regExPass.test($pass.value):
-                $passErrors.innerHTML = 'La contraseña debe tener: entre 6 o 12 caracteres, al menos una mayúscula, una minúscula y un número';
+                $passErrors.innerHTML = 'Contraseña invalida';
                 $pass.classList.add('is-invalid')
                 validationsErrors = true
                 break;
@@ -79,7 +79,7 @@ window.addEventListener('load', function () {
     
 
     $form.addEventListener('submit', function (event) {
-        event.preventDefault();
+        
 
         let error = false;
         let elementsForm = this.elements;
@@ -102,6 +102,9 @@ window.addEventListener('load', function () {
         }
         if (!error && !validationsErrors) {
             $form.submit()
+        }
+        else{
+            event.preventDefault();
         }
     })
 

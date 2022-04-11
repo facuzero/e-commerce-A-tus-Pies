@@ -4,9 +4,10 @@ const { Op } = require('sequelize');
 const db = require('../data/models');
 
 const Products = db.Product;
-const Categories = db.Category;
+const User = db.User;
 const Cart = db.Cart;
 const Products_cart = db.Product_cart
+
 
 let controller={
     product: (req,res) => {
@@ -23,10 +24,14 @@ let controller={
         })
     })
     },
+
     cart:(req,res)=>{
-        Products.findAll({
-            include:[{association:'cart'},{association:'category'},{association:'colors'}]
-        })
+        Promise.all([Products_cart.findAll({
+            include:[{association:'cart'},{association:'product'}]
+        }),
+        Cart.findOne({
+            include:[{association:'cart_user'},{association:'products_cart'}]
+        },{where:{id:req.session.id}})])
         .then((products)=>{
             res.render('productCart',{
                 products,
@@ -39,18 +44,22 @@ let controller={
             where: {
                 id: req.params.id,
             },
-            include: [{ association: 'images' }]
+            include: [{association:'colors'},
+            {association:'images'},{association:'marca'},]
         })
             .then(((product) => {
                 Products.findAll({
-                    include: [{ association: 'images' }],
+                    include: [{association:'colors'},
+                    {association:'images'},{association:'marca'},],
                     where: {
                         id: req.params.id,
                     }
                 })
-                    .then((relatedProducts) => {
+                    .then((relatedProducts,colors,marca) => {
                         res.render("productDetail", {
                             product,
+                            colors,
+                            marca,
                             sliderTitle: "Productos relacionados",
                             sliderProducts: relatedProducts,
                             session: req.session
@@ -76,7 +85,7 @@ let controller={
         Products.findAll({
             where:{
                 name:{
-                    [Op.substring]: req.query.keywords
+                    [Op.substring]: req.query.search
                 }
             },
             include: [{association: "images"}]
@@ -84,7 +93,7 @@ let controller={
         .then((result) => {
             res.render("searchResult",{
                 result,
-                search: req.query.keywords,
+                search: req.query.search,
                 session: req.session
             })
         })
